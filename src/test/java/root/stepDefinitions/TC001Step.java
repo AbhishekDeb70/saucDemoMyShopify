@@ -1,5 +1,5 @@
 //Define the step definitions using page objects.
-package stepDefinitions;
+package root.stepDefinitions;
 
 public class TC001Step {
 }
