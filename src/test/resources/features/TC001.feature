@@ -1,1 +1,0 @@
-//contains feature files of the test cases in gherkins lang
