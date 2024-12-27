@@ -1,8 +1,9 @@
 package com.shopify.pageObjects;
 
+import com.shopify.utilityClasses.BrowserUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
@@ -12,14 +13,18 @@ public class HomePage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//a[text()='Sign up']")
-    WebElement signUpBtn;
-    public WebElement signUpBtn(){
-        return signUpBtn;
+    @FindBy(id = "add-to-cart-sauce-labs-backpack")
+    WebElement addToCartBackPackBtn;
+
+    @FindBy(id = "shopping_cart_container")
+    WebElement cartBtn;
+
+    public void clickAddToCartBackPack(){
+        BrowserUtil.waitForElementToBeVisible(addToCartBackPackBtn, this.driver);
+        addToCartBackPackBtn.click();
     }
 
-    public void clickSignUp() {
-        signUpBtn.click();
+    public void clickCartBtn(){
+        cartBtn.click();
     }
-
 }
