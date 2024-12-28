@@ -23,10 +23,6 @@ public class AddToCartSteps {
     @Given("User launches the browser")
     public void user_launches_the_browser() {
         driver = BrowserUtil.getDriver(ConfigReader.get("BROWSER"));
-        lp= new LogInPage(driver);
-        hp= new HomePage(driver);
-        cp= new CartPage(driver);
-        chkpg= new CheckOutPage(driver);
         System.out.println(ConfigReader.get("BROWSER") + " browser launched!");
         driver.manage().window().maximize();
     }
@@ -38,6 +34,7 @@ public class AddToCartSteps {
 
     @And("User enters email and password")
     public void user_enters_email_and_password() {
+        lp= new LogInPage(driver);
         lp.setUserName(ConfigReader.get("USERNAME"));
         lp.setPassword(ConfigReader.get("PASSWORD"));
     }
@@ -49,6 +46,7 @@ public class AddToCartSteps {
 
     @Then("User selects a product")
     public void user_selects_a_product(){
+        hp= new HomePage(driver);
         hp.clickAddToCartBackPack();
     }
 
@@ -59,11 +57,13 @@ public class AddToCartSteps {
 
     @Then("User clicks on Checkout")
     public void user_clicks_on_checkout(){
+        cp= new CartPage(driver);
         cp.clickCheckOutBtn();
     }
 
     @And("Enters the firstName lastName and postalCode")
     public void enters_the_firstName_lastName_and_postalCode(){
+        chkpg= new CheckOutPage(driver);
         chkpg.setFirstNameField(ConfigReader.get("FIRSTNAME"));
         chkpg.setLastNameField(ConfigReader.get("LASTNAME"));
         chkpg.setPostalCode(ConfigReader.get("ZIPCODE"));
