@@ -13,10 +13,6 @@ import org.testng.Assert;
 public class AddToCartSteps {
 
     WebDriver driver;
-    LogInPage lp;
-    HomePage hp;
-    CartPage cp;
-    CheckOutPage chkpg;
     String expectedAmount = "$29.99";
     String orderConfMsg ="Your order has been dispatched, and will arrive just as fast as the pony can get there!";
 
@@ -34,36 +30,38 @@ public class AddToCartSteps {
 
     @And("User enters email and password")
     public void user_enters_email_and_password() {
-        lp= new LogInPage(driver);
+        LogInPage lp= new LogInPage(driver);
         lp.setUserName(ConfigReader.get("USERNAME"));
         lp.setPassword(ConfigReader.get("PASSWORD"));
     }
 
     @And("Clicks on Login")
     public void clicks_on_login(){
+        LogInPage lp= new LogInPage(driver);
         lp.clickLoginBtn();
     }
 
     @Then("User selects a product")
     public void user_selects_a_product(){
-        hp= new HomePage(driver);
+        HomePage hp= new HomePage(driver);
         hp.clickAddToCartBackPack();
     }
 
     @And("Clicks on Cart button")
     public void clicks_on_cart_button(){
+        HomePage hp= new HomePage(driver);
         hp.clickCartBtn();
     }
 
     @Then("User clicks on Checkout")
     public void user_clicks_on_checkout(){
-        cp= new CartPage(driver);
+        CartPage cp= new CartPage(driver);
         cp.clickCheckOutBtn();
     }
 
     @And("Enters the firstName lastName and postalCode")
     public void enters_the_firstName_lastName_and_postalCode(){
-        chkpg= new CheckOutPage(driver);
+        CheckOutPage chkpg= new CheckOutPage(driver);
         chkpg.setFirstNameField(ConfigReader.get("FIRSTNAME"));
         chkpg.setLastNameField(ConfigReader.get("LASTNAME"));
         chkpg.setPostalCode(ConfigReader.get("ZIPCODE"));
@@ -71,17 +69,20 @@ public class AddToCartSteps {
 
     @And("Clicks on continue")
     public void clicks_on_continue(){
+        CheckOutPage chkpg= new CheckOutPage(driver);
         chkpg.clickContinueBtn();
     }
 
     @Then("Verifies the total amount and clicks on finish")
     public void verifies_the_total_amount_and_clicks_on_finish(){
+        CheckOutPage chkpg= new CheckOutPage(driver);
         Assert.assertEquals(expectedAmount, chkpg.getTotalPrice());
         chkpg.clickFinishBtn();
     }
 
     @Then("Verifies the order success message")
     public void verifies_the_order_success_message(){
+        CheckOutPage chkpg= new CheckOutPage(driver);
         Assert.assertEquals(orderConfMsg, chkpg.getOrderSuccessMsg());
     }
 
