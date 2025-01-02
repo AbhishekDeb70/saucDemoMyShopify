@@ -17,9 +17,24 @@ public class CartPage {
     @FindBy(id = "checkout")
     WebElement checkOutBtn;
 
+    @FindBy(id = "remove-sauce-labs-backpack")
+    WebElement removeBtn;
+
+    @FindBy(id = "continue-shopping")
+    WebElement continueShoppingBtn;
+
     public void clickCheckOutBtn(){
         BrowserUtil.waitForElementToBeVisible(checkOutBtn, this.driver);
         checkOutBtn.click();
     }
 
+    public void clickRemoveBtn(){
+        BrowserUtil.waitForElementToBeVisible(removeBtn, this.driver);
+        removeBtn.click();
+    }
+
+    public void clickContinueShoppingBtn(){
+        BrowserUtil.waitForElementToBeVisible(continueShoppingBtn, this.driver);
+        continueShoppingBtn.click();
+    }
 }

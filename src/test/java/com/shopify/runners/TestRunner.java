@@ -2,8 +2,8 @@ package com.shopify.runners;
 
 import io.cucumber.testng.CucumberOptions;
 
-    @CucumberOptions(
-            features = "src/test/resources/features/addToCart.feature",
+@CucumberOptions(
+            features = "src/test/resources/features",
             glue = {"com.shopify/stepDefinitions"},
             dryRun = true,
             plugin = {"pretty", "html:target/cucumber-reports.html"},
