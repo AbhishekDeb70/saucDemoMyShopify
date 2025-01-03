@@ -1,6 +1,6 @@
 Feature: AddToCart
 
-  Scenario Outline: User adds item to cart and checkout
+  Scenario: User adds item to cart and checkout
 
     When User selects a product
     And Clicks on Cart button

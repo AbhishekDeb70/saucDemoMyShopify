@@ -1,0 +1,11 @@
+<suite name="Cucumber Test Suite" parallel="classes" thread-count="4">
+    <listeners>
+        <!-- Add Allure TestNG listener -->
+        <listener class-name="io.qameta.allure.testng.AllureTestNg" />
+    </listeners>
+    <test name="Cucumber Scenarios">
+        <classes>
+            <class name="com.shopify.runners.TestRunner" />
+        </classes>
+    </test>
+</suite>

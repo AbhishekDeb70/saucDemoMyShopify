@@ -1,6 +1,6 @@
 Feature: RemoveFromCart
 
-  Scenario Outline: User can remove product from cart
+  Scenario: User can remove product from cart
 
     When User selects the product
     And Clicks on the Cart button

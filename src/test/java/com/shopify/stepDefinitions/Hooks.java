@@ -13,14 +13,11 @@ public class Hooks {
     @Before
     public void setupAndLogin() {
         // Initialize WebDriver
-        if (driver == null) {
             driver = BrowserUtil.getDriver(ConfigReader.get("BROWSER"));
             driver.manage().window().maximize();
             driver.get(ConfigReader.get("BASE_URL"));
-
             // Perform login
             LoginUtil.performLogin(driver, ConfigReader.get("USERNAME"), ConfigReader.get("PASSWORD"));
-        }
     }
 
     @After
