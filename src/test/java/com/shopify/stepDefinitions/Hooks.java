@@ -8,7 +8,7 @@ import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 public class Hooks {
 
-    private static WebDriver driver;
+    private WebDriver driver;
 
     @Before
     public void setupAndLogin() {
@@ -22,10 +22,10 @@ public class Hooks {
 
     @After
     public void closeBrowser(){
-        driver.quit();
+        BrowserUtil.closeDriver();
     }
 
     public static WebDriver getDriver() {
-        return driver;
+        return BrowserUtil.getDriver(ConfigReader.get("BROWSER"));
     }
 }

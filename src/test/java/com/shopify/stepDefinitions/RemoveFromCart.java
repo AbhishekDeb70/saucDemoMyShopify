@@ -38,7 +38,7 @@ public class RemoveFromCart {
     @Then("Verifies presence of Add to Cart button on the same product")
     public void verifies_presence_of_addToCart_button_on_the_same_product(){
         HomePage hp= new HomePage(driver);
-        Assert.assertEquals(hp.getAddToCartBtnText(), addToCartBtn, "Error unmatch");
+        Assert.assertEquals(hp.getAddToCartBtnText(), addToCartBtn);
     }
 
 }
