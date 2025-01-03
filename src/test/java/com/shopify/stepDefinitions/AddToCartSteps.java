@@ -16,7 +16,6 @@ public class AddToCartSteps {
 
     @When("User selects a product")
     public void user_selects_a_product(){
-        System.out.println("In1");
         HomePage hp= new HomePage(driver);
         hp.clickAddToCartBackPack();
     }
