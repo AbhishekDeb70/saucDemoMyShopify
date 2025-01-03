@@ -24,6 +24,10 @@ public class HomePage {
         addToCartBackPackBtn.click();
     }
 
+    public String getAddToCartBtnText(){
+        return addToCartBackPackBtn.getText();
+    }
+
     public void clickCartBtn(){
         cartBtn.click();
     }

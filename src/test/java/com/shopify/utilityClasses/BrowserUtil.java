@@ -11,11 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class BrowserUtil {
-    private static WebDriver driver;
+    private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     // Method to initialize WebDriver for different browsers
     public static WebDriver getDriver(String browser) {
-        if (driver == null) {
+        if (driverThreadLocal.get() == null) {
+            WebDriver driver;
             switch (browser.toLowerCase()) {
                 case "chrome":
                     driver = new ChromeDriver();
@@ -31,15 +32,16 @@ public class BrowserUtil {
             }
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            driverThreadLocal.set(driver);
         }
-        return driver;
+        return driverThreadLocal.get();
     }
 
     // Method to quit WebDriver
     public static void closeDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null; // Reset the driver instance
+        if (driverThreadLocal.get() != null) {
+            driverThreadLocal.get().quit();
+            driverThreadLocal.remove(); // Reset the driver instance
         }
     }
 

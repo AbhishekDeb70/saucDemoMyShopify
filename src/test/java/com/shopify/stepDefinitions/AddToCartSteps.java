@@ -3,8 +3,6 @@ package com.shopify.stepDefinitions;
 import com.shopify.pageObjects.CartPage;
 import com.shopify.pageObjects.CheckOutPage;
 import com.shopify.pageObjects.HomePage;
-import com.shopify.pageObjects.LogInPage;
-import com.shopify.utilityClasses.BrowserUtil;
 import com.shopify.utilityClasses.ConfigReader;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
@@ -12,36 +10,11 @@ import org.testng.Assert;
 
 public class AddToCartSteps {
 
-    WebDriver driver;
+    WebDriver driver= Hooks.getDriver();
     String expectedAmount = "$29.99";
     String orderConfMsg ="Your order has been dispatched, and will arrive just as fast as the pony can get there!";
 
-    @Given("User launches the browser")
-    public void user_launches_the_browser() {
-        driver = BrowserUtil.getDriver(ConfigReader.get("BROWSER"));
-        System.out.println(ConfigReader.get("BROWSER") + " browser launched!");
-        driver.manage().window().maximize();
-    }
-
-    @When("User opens URL")
-    public void user_opens_URL() {
-        driver.get(ConfigReader.get("BASE_URL"));
-    }
-
-    @And("User enters email and password")
-    public void user_enters_email_and_password() {
-        LogInPage lp= new LogInPage(driver);
-        lp.setUserName(ConfigReader.get("USERNAME"));
-        lp.setPassword(ConfigReader.get("PASSWORD"));
-    }
-
-    @And("Clicks on Login")
-    public void clicks_on_login(){
-        LogInPage lp= new LogInPage(driver);
-        lp.clickLoginBtn();
-    }
-
-    @Then("User selects a product")
+    @When("User selects a product")
     public void user_selects_a_product(){
         HomePage hp= new HomePage(driver);
         hp.clickAddToCartBackPack();
@@ -84,11 +57,6 @@ public class AddToCartSteps {
     public void verifies_the_order_success_message(){
         CheckOutPage chkpg= new CheckOutPage(driver);
         Assert.assertEquals(orderConfMsg, chkpg.getOrderSuccessMsg());
-    }
-
-    @And("Close browser")
-    public void close_browser(){
-        driver.quit();
     }
 
 }
