@@ -19,6 +19,15 @@ public class HomePage {
     @FindBy(id = "shopping_cart_container")
     WebElement cartBtn;
 
+    @FindBy(css = "[data-test='product-sort-container']")
+    WebElement sortBtn;
+
+   @FindBy(css = "[value='hilo']")
+   WebElement filterHighToLow;
+
+   @FindBy(xpath = "//div[text()='49.99']")
+   WebElement amountVerification;
+
     public void clickAddToCartBackPack(){
         BrowserUtil.waitForElementToBeVisible(addToCartBackPackBtn, this.driver);
         addToCartBackPackBtn.click();
@@ -30,5 +39,20 @@ public class HomePage {
 
     public void clickCartBtn(){
         cartBtn.click();
+    }
+
+    public void clickSortBtn(){
+        BrowserUtil.waitForElementToBeVisible(sortBtn, this.driver);
+        sortBtn.click();
+    }
+
+    public void selectFilterHighToLow(){
+        BrowserUtil.waitForElementToBeVisible(filterHighToLow, this.driver);
+        filterHighToLow.click();
+    }
+
+    public String verifyHighestAmt(){
+        BrowserUtil.waitForElementToBeVisible(amountVerification,this.driver);
+        return amountVerification.getText();
     }
 }
