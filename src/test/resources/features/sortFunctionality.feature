@@ -4,4 +4,4 @@ Feature: SortFunctionality
 
     When User clicks on Sorting menu
     And Sets the price from High to Low
-    Then Verifies the price of the costliest product
+    Then Verifies the price of the product in sorted fashion

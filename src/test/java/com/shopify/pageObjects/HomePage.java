@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class HomePage {
     WebDriver driver;
     public HomePage(WebDriver driver) {
@@ -25,8 +27,8 @@ public class HomePage {
    @FindBy(css = "[value='hilo']")
    WebElement filterHighToLow;
 
-   @FindBy(xpath = "//div[text()='49.99']")
-   WebElement amountVerification;
+    @FindBy(css = ".inventory_item_price")
+    List<WebElement> productPrices;
 
     public void clickAddToCartBackPack(){
         BrowserUtil.waitForElementToBeVisible(addToCartBackPackBtn, this.driver);
@@ -51,8 +53,12 @@ public class HomePage {
         filterHighToLow.click();
     }
 
-    public String verifyHighestAmt(){
-        BrowserUtil.waitForElementToBeVisible(amountVerification,this.driver);
-        return amountVerification.getText();
+    public double[] getAllProductPrices() {
+        double[] prices = new double[productPrices.size()];
+        for (int i = 0; i < productPrices.size(); i++) {
+            String priceText = productPrices.get(i).getText().replace("$", "");
+            prices[i] = Double.parseDouble(priceText);
+        }
+        return prices;
     }
 }

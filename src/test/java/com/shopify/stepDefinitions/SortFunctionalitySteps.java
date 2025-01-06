@@ -5,10 +5,11 @@ import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import java.util.Arrays;
+
 public class SortFunctionalitySteps {
 
     WebDriver driver = Hooks.getDriver();
-    String expectedHighestAmt = "$49.99";
 
     @When("User clicks on Sorting menu")
     public void user_clicks_on_sorting_menu(){
@@ -22,9 +23,17 @@ public class SortFunctionalitySteps {
         hp.selectFilterHighToLow();
     }
 
-    @Then("Verifies the price of the costliest product")
-    public void verifies_price_of_the_costliest_product(){
+    @Then("Verifies the price of the product in sorted fashion")
+    public void verifies_price_of_the_product_in_sorted_fashion(){
         HomePage hp= new HomePage(driver);
-        Assert.assertEquals(hp.verifyHighestAmt(), expectedHighestAmt);
+        double[] actualPrices = hp.getAllProductPrices();
+        double[] sortedPrices = Arrays.copyOf(actualPrices, actualPrices.length);
+        Arrays.sort(sortedPrices);
+        for (int i = 0; i < sortedPrices.length / 2; i++) {
+            double temp = sortedPrices[i];
+            sortedPrices[i] = sortedPrices[sortedPrices.length - i - 1];
+            sortedPrices[sortedPrices.length - i - 1] = temp;
+        }
+        Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Product prices are not sorted from High to Low!");
     }
 }
