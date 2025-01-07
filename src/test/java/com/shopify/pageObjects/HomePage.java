@@ -7,6 +7,7 @@ import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomePage {
     WebDriver driver;
@@ -53,12 +54,10 @@ public class HomePage {
         filterHighToLow.click();
     }
 
-    public double[] getAllProductPrices() {
-        double[] prices = new double[productPrices.size()];
-        for (int i = 0; i < productPrices.size(); i++) {
-            String priceText = productPrices.get(i).getText().replace("$", "");
-            prices[i] = Double.parseDouble(priceText);
-        }
-        return prices;
+    public List<Double> getAllProductPrices(){
+        return productPrices
+                .stream()
+                .map(priceElement->Double.parseDouble(priceElement.getText().replace("$", "")))
+                .collect(Collectors.toList());
     }
 }

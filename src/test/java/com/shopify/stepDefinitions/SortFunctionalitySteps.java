@@ -5,7 +5,7 @@ import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class SortFunctionalitySteps {
 
@@ -26,14 +26,11 @@ public class SortFunctionalitySteps {
     @Then("Verifies the price of the product in sorted fashion")
     public void verifies_price_of_the_product_in_sorted_fashion(){
         HomePage hp= new HomePage(driver);
-        double[] actualPrices = hp.getAllProductPrices();
-        double[] sortedPrices = Arrays.copyOf(actualPrices, actualPrices.length);
-        Arrays.sort(sortedPrices);
-        for (int i = 0; i < sortedPrices.length / 2; i++) {
-            double temp = sortedPrices[i];
-            sortedPrices[i] = sortedPrices[sortedPrices.length - i - 1];
-            sortedPrices[sortedPrices.length - i - 1] = temp;
+        List<Double> actualPrices = hp.getAllProductPrices();
+        double lastPrice = actualPrices.get(0);
+        for (Double price:actualPrices){
+            Assert.assertTrue(lastPrice>=price);
+            lastPrice=price;
         }
-        Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Product prices are not sorted from High to Low!");
     }
 }
