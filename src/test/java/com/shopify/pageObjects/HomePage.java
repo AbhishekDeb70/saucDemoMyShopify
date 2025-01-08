@@ -19,6 +19,9 @@ public class HomePage {
     @FindBy(id = "add-to-cart-sauce-labs-backpack")
     WebElement addToCartBackPackBtn;
 
+    @FindBy(id = "add-to-cart-sauce-labs-bike-light")
+    WebElement addToCartBikeLightBtn;
+
     @FindBy(id = "shopping_cart_container")
     WebElement cartBtn;
 
@@ -34,6 +37,10 @@ public class HomePage {
     public void clickAddToCartBackPack(){
         BrowserUtil.waitForElementToBeVisible(addToCartBackPackBtn, this.driver);
         addToCartBackPackBtn.click();
+    }
+
+    public void clickAddToCartBikeLight(){
+        addToCartBikeLightBtn.click();
     }
 
     public String getAddToCartBtnText(){

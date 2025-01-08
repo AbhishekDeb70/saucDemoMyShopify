@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CheckOutPage {
 
     WebDriver driver;
@@ -34,6 +37,15 @@ public class CheckOutPage {
 
     @FindBy(css = "[class='complete-text']")
     WebElement orderSuccessMsg;
+
+    @FindBy(css = "[class='inventory_item_price']")
+    List<WebElement> productPrices;
+
+    @FindBy(css = "[class='summary_tax_label']")
+    WebElement taxAmount;
+
+    @FindBy(css = "[class='summary_total_label']")
+    WebElement totalPrice;
 
     public void setFirstNameField(String firstName){
         BrowserUtil.waitForElementToBeVisible(firstNameField, this.driver);
@@ -73,4 +85,21 @@ public class CheckOutPage {
         BrowserUtil.waitForElementToBeVisible(orderSuccessMsg, this.driver);
         return orderSuccessMsg.getText();
     }
+
+    public List<Double> getCartProductPrices() {
+        List<Double> prices = new ArrayList<>();
+        for (WebElement priceElement : productPrices) {
+            prices.add(Double.parseDouble(priceElement.getText().replace("$", "").trim()));
+        }
+        return prices;
+    }
+
+    public double getTaxAmount() {
+        return Double.parseDouble(taxAmount.getText().replace("Tax: $", "").trim());
+    }
+
+    public double getDisplayedTotalPrice() {
+        return Double.parseDouble(totalPrice.getText().replace("Total: $", "").trim());
+    }
+
 }
