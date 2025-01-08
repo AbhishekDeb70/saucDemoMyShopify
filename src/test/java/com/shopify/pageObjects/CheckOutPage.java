@@ -6,8 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CheckOutPage {
 
@@ -87,11 +87,10 @@ public class CheckOutPage {
     }
 
     public List<Double> getCartProductPrices() {
-        List<Double> prices = new ArrayList<>();
-        for (WebElement priceElement : productPrices) {
-            prices.add(Double.parseDouble(priceElement.getText().replace("$", "").trim()));
-        }
-        return prices;
+        return productPrices
+                .stream()
+                .map(priceElement->Double.parseDouble(priceElement.getText().replace("$", "").trim()))
+                .collect(Collectors.toList());
     }
 
     public double getTaxAmount() {
