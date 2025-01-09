@@ -55,10 +55,7 @@ public class MultipleProductsSteps {
     public void verifies_the_total_cart_amount(){
         CheckOutPage chkpg= new CheckOutPage(driver);
         selectedProductPrices = chkpg.getCartProductPrices();
-        double sumOfPrices = 0.0;
-        for (Double selectedProductPrice : selectedProductPrices) {
-            sumOfPrices += selectedProductPrice;
-        }
+        double sumOfPrices = selectedProductPrices.stream().mapToDouble(Double::doubleValue).sum();
         double tax = chkpg.getTaxAmount();
         double displayedTotal = chkpg.getDisplayedTotalPrice();
         calculatedTotal = sumOfPrices + tax;
